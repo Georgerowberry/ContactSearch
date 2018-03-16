@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row">
+    <ul class="collection with-header">
+        <li class="collection-header"><h4>Contacts Matching: {{ data.search_term }}</h4></li>
+        {% for i in data.matches %}
+            <li class="collection-item">
+                <h4>{{ i.name }}</h4>
+                <h5>{{ i.email }}</h5>
+                <h5>{{ i.company }}</h5>
+                <h5>{{ i.city }}, {{ i.country }}</h5>
+                <h5> Previous Jobs: {% for j in i.job_history %}{{ j }} {% endfor %}</h5>
+            </li>
+        {% endfor %}
+    </ul>
+    </div>
+
+{% endblock %}

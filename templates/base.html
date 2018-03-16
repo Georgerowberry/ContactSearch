@@ -1,15 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UFT-8">
     <title>ContactSearch</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/materialize.min.css') }}" media="screen,projection">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <style>
+        nav {
+            background-color: #26a69a;
+        }
+        .vcenter {
+            height: 100px;
+            position: absolute;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    </style>
 </head>
 <body>
+<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">ContactSearch</a>
+        {% if data.results %}
+        <ul class="right hide-on-med-and-down">
+            <li class="right"><a href="../"><i class="material-icons">refresh</i></a></li>
+        </ul>
+        {% endif %}
+    </div>
+
+  </nav>
+<div class="container">
+    {% block content %}
+{% endblock %}
+</div>
 
 
-
-<script href="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/materialize.min.js') }}"></script>
+{% block js %}
+{% endblock %}
 </body>
 
 </html>

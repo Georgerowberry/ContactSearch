@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row">
+    <form id="search_form" class="col s12" method="get">
+      <div class="row vcenter">
+        <div class="input-field col s12 m6 l4 push-m3 push-l4 vcenter">
+          <input id="search_input" name="search" type="text" class="validate autocomplete">
+          <label for="search_input">Search for Contact</label>
+            <button class="waves-effect waves-light btn align-center">Search</button>
+        </div>
+
+      </div>
+    </form>
+    </div>
+{% endblock %}
+{% block js %}
+    <script>
+    $(document).ready(function () {
+        $('#search_input').autocomplete({
+        data: {
+            {% for d in data %}
+                '{{ d.name }}': null,
+            {% endfor %}
+        },
+        limit: 5,
+        onAutocomplete: function(val) {
+            $('#search_input').val(val);
+            $('#search_form').submit();
+        },
+        minLength: 2
+      });
+    })
+
+    </script>
+{% endblock %}

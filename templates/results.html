@@ -2,17 +2,45 @@
 {% block content %}
     <div class="row">
     <ul class="collection with-header">
-        <li class="collection-header"><h4>Contacts Matching: {{ data.search_term }}</h4></li>
+        <li class="collection-header"><h6>{% if data.search_term %}Contacts Matching: {{ data.search_term }}{% else %}All Contacts{% endif %}</h6></li>
+        <table id="contact_table" class="highlight responsive-table mdl-data-table">
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>E-mail</th>
+              <th>Company</th>
+              <th>Location</th>
+              <th>Previous Work</th>
+          </tr>
+        </thead>
+
+        <tbody>
         {% for i in data.matches %}
-            <li class="collection-item">
-                <h4>{{ i.name }}</h4>
-                <h5>{{ i.email }}</h5>
-                <h5>{{ i.company }}</h5>
-                <h5>{{ i.city }}, {{ i.country }}</h5>
-                <h5> Previous Jobs: {% for j in i.job_history %}{{ j }} {% endfor %}</h5>
-            </li>
+          <tr>
+            <td>{{ i.name }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.company }}</td>
+            <td>{{ i.city }}, {{ i.country }}</td>
+          <td>{% for j in i.job_history %}{{ j }}{{ ", " if not loop.last else "." }}{% endfor %}</td>
+          </tr>
         {% endfor %}
+        </tbody>
+        </table>
     </ul>
     </div>
 
+{% endblock %}
+{% block js %}
+    <script>
+    $(document).ready( function () {
+        $('#contact_table').DataTable({
+            columnDefs: [
+            {
+                targets: [ 0, 1, 2 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
+        });
+    } );
+    </script>
 {% endblock %}
